@@ -16,12 +16,18 @@ import Testing
 
 private enum Node {}
 
-@Suite struct TaggedIndexedViewTests {
+@Suite struct `Tagged Indexed View Tests` {
+    @Suite struct Unit {}
+    @Suite struct `Edge Case` {}
+    @Suite struct Integration {}
+}
+
+extension `Tagged Indexed View Tests`.Unit {
     // The bridge is generic over ANY `Collection.`Protocol`` conformer, so it is
     // tested against `Collection.Fixture.Source` (vended by Collection Primitives
     // Test Support — the spine anchor) rather than any concrete container package.
     // `Tagged<Node, Source>` re-exposes the collection through `Index<Node>`.
-    @Test func indexedViewOverACollectionConformer() {
+    @Test func `indexed view over a collection conformer`() {
         let source = Collection.Fixture.Source<Int>([10, 20, 30])
         let nodes = Tagged<Node, Collection.Fixture.Source<Int>>(source)
 
