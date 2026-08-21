@@ -36,7 +36,7 @@ let package = Package(
         ),
     ],
     targets: [
-        // MARK: - Integration
+
         .target(
             name: "Tagged Collection Primitives",
             dependencies: [
@@ -48,13 +48,12 @@ let package = Package(
                 .product(name: "Index Primitives", package: "swift-index-primitives"),
             ]
         ),
-        // MARK: - Test Support
+
         .target(
             name: "Tagged Collection Primitives Test Support",
             dependencies: [
                 "Tagged Collection Primitives",
-                // Test Support spine ([MOD-024]): the TS of the collection dep, which
-                // vends Collection.Fixture.Source — a Collection.`Protocol` conformer.
+
                 .product(
                     name: "Collection Primitives Test Support",
                     package: "swift-collection-primitives"
@@ -62,7 +61,7 @@ let package = Package(
             ],
             path: "Tests/Support"
         ),
-        // MARK: - Tests
+
         .testTarget(
             name: "Tagged Collection Primitives Tests",
             dependencies: [
