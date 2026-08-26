@@ -1,2 +1,2 @@
-@_exported public import Tagged_Collection_Primitives
-@_exported public import Collection_Primitives_Test_Support
+@_exported public import Tagged_Collection
+@_exported public import Collection_Test_Support

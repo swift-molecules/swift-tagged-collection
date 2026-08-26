@@ -1,7 +1,7 @@
-import Collection_Primitives_Test_Support
-import Index_Primitives
-import Tagged_Collection_Primitives
-import Tagged_Primitives
+import Collection_Test_Support
+import Index
+import Tagged_Collection
+import Tagged
 import Testing
 
 private enum Node {}

@@ -3,7 +3,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "swift-tagged-collection-primitives",
+    name: "swift-tagged-collection",
     platforms: [
         .macOS(.v27),
         .iOS(.v27),
@@ -13,63 +13,63 @@ let package = Package(
     ],
     products: [
         .library(
-            name: "Tagged Collection Primitives",
-            targets: ["Tagged Collection Primitives"]
+            name: "Tagged Collection",
+            targets: ["Tagged Collection"]
         ),
         .library(
-            name: "Tagged Collection Primitives Test Support",
-            targets: ["Tagged Collection Primitives Test Support"]
+            name: "Tagged Collection Test Support",
+            targets: ["Tagged Collection Test Support"]
         ),
     ],
     dependencies: [
         .package(
-            url: "https://github.com/swift-primitives/swift-tagged-primitives.git",
+            url: "https://github.com/swift-molecules/swift-tagged.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-collection-primitives.git",
+            url: "https://github.com/swift-molecules/swift-collection.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-index-primitives.git",
+            url: "https://github.com/swift-molecules/swift-index.git",
             branch: "main"
         ),
     ],
     targets: [
 
         .target(
-            name: "Tagged Collection Primitives",
+            name: "Tagged Collection",
             dependencies: [
-                .product(name: "Tagged Primitives", package: "swift-tagged-primitives"),
+                .product(name: "Tagged", package: "swift-tagged"),
                 .product(
-                    name: "Collection Protocol Primitives",
-                    package: "swift-collection-primitives"
+                    name: "Collection Protocol",
+                    package: "swift-collection"
                 ),
-                .product(name: "Index Primitives", package: "swift-index-primitives"),
+                .product(name: "Index", package: "swift-index"),
             ]
         ),
 
         .target(
-            name: "Tagged Collection Primitives Test Support",
+            name: "Tagged Collection Test Support",
             dependencies: [
-                "Tagged Collection Primitives",
+                "Tagged Collection",
 
                 .product(
-                    name: "Collection Primitives Test Support",
-                    package: "swift-collection-primitives"
+                    name: "Collection Test Support",
+                    package: "swift-collection"
                 ),
             ],
             path: "Tests/Support"
         ),
 
         .testTarget(
-            name: "Tagged Collection Primitives Tests",
+            name: "Tagged Collection Tests",
             dependencies: [
-                "Tagged Collection Primitives",
-                "Tagged Collection Primitives Test Support",
+                "Tagged Collection",
+                "Tagged Collection Test Support",
                 .product(
-                    name: "Collection Primitives Test Support",
-                    package: "swift-collection-primitives"
+                    name: "Collection Test Support",
+                    package: "swift-collection"
                 ),
             ]
         ),
