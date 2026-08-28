@@ -8,7 +8,7 @@ Re-exposes an institute collection through a phantom-typed index — `Tagged<Tag
 
 ## Quick Start
 
-This package is a single, generic bridge between [Tagged](https://github.com/swift-molecules/swift-tagged), [Collection Protocol](https://github.com/swift-molecules/swift-collection), and [Index](https://github.com/swift-molecules/swift-index). When `Tagged`'s `Underlying` is a collection whose index domain is the default `Index<Element>`, `Tagged<Tag, Underlying>` re-exposes that collection through `Index<Tag>`. The phantom `Tag` distinguishes this collection's positions from any other's, caught at compile time rather than runtime.
+This package is a single, generic bridge between the atom-owned `Tagged`, `Collection`, and `Index` domains. When `Tagged`'s `Underlying` is a collection whose index domain is `Index<Element>`, `Tagged<Tag, Underlying>` re-exposes that collection through `Index<Tag>`. The phantom `Tag` distinguishes this collection's positions from any other's, caught at compile time rather than runtime.
 
 ```swift
 import Tagged_Collection
@@ -16,10 +16,11 @@ import Tagged_Collection
 enum Node {}
 
 // Any `Collection.Protocol` conformer whose Index is `Index<Element>`.
-let source = Collection.Fixture.Source<Int>([10, 20, 30])
+// Assume MyIndexedCollection conforms to Collection.Protocol with Index<Int> positions.
+let source = MyIndexedCollection([10, 20, 30])
 
 // `Tagged<Node, …>` re-exposes the collection through `Index<Node>`.
-let nodes = Tagged<Node, Collection.Fixture.Source<Int>>(source)
+let nodes = Tagged<Node, MyIndexedCollection<Int>>(_unchecked: source)
 
 #expect(!nodes.isEmpty)
 
@@ -53,20 +54,20 @@ dependencies: [
 )
 ```
 
-Requires Swift 6.3.1 and macOS 26 / iOS 26 / tvOS 26 / watchOS 26 / visionOS 26 (or the matching Linux / Windows toolchain).
+Requires Swift 6.4 and macOS 27 / iOS 27 / tvOS 27 / watchOS 27 / visionOS 27 (or the matching Linux / Windows toolchain).
 
 ---
 
 ## Architecture
 
-One library product plus a test-support product. The package is pure integration — it adds a single generic extension on `Tagged` and re-exports its three dependencies.
+One library product plus a narrow test-support re-export. The package is pure integration — it adds a single generic extension on `Tagged` and re-exports its three production dependencies.
 
 | Product | Target | Purpose |
 |---------|--------|---------|
-| `Tagged Collection` | `Sources/Tagged Collection/` | The phantom-typed indexed-collection view: an extension on `Tagged` exposing `count`, `isEmpty`, `startIndex`, `endIndex`, `index(after:)`, and `subscript(position:)` in the `Index<Tag>` domain. Re-exports `Tagged`, `Collection Protocol`, and `Index`. |
-| `Tagged Collection Test Support` | `Tests/Support/` | Re-exports the main target plus the `Collection Test Support` spine, which vends `Collection.Fixture` conformers for tests. |
+| `Tagged Collection` | `Sources/Tagged Collection/` | The phantom-typed indexed-collection view: an extension on `Tagged` exposing `count`, `isEmpty`, `startIndex`, `endIndex`, `index(after:)`, and `subscript(position:)` in the `Index<Tag>` domain. Re-exports the current `Tagged`, `Collection`, and `Index` owners. |
+| `Tagged Collection Test Support` | `Tests/Support/` | Narrow re-export of the main target for test consumers. |
 
-Dependencies: [swift-tagged](https://github.com/swift-molecules/swift-tagged), [swift-collection](https://github.com/swift-molecules/swift-collection), [swift-index](https://github.com/swift-molecules/swift-index).
+Production dependencies: [swift-tagged](https://github.com/swift-atoms/swift-tagged), [swift-collection](https://github.com/swift-atoms/swift-collection), [swift-index](https://github.com/swift-atoms/swift-index).
 
 Foundation-free.
 
@@ -76,7 +77,7 @@ Foundation-free.
 
 | Platform | Status |
 |----------|--------|
-| macOS 26 | Full support |
+| macOS 27 | Full support |
 | Linux | Full support |
 | Windows | Full support |
 | iOS / tvOS / watchOS / visionOS | Supported |

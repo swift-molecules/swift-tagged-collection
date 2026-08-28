@@ -23,15 +23,27 @@ let package = Package(
     ],
     dependencies: [
         .package(
-            url: "https://github.com/swift-molecules/swift-tagged.git",
+            url: "https://github.com/swift-atoms/swift-tagged.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-molecules/swift-collection.git",
+            url: "https://github.com/swift-atoms/swift-collection.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-molecules/swift-index.git",
+            url: "https://github.com/swift-atoms/swift-index.git",
+            branch: "main"
+        ),
+        .package(
+            url: "https://github.com/swift-atoms/swift-iterator.git",
+            branch: "main"
+        ),
+        .package(
+            url: "https://github.com/swift-atoms/swift-ordinal.git",
+            branch: "main"
+        ),
+        .package(
+            url: "https://github.com/swift-molecules/swift-ordinal-comparison.git",
             branch: "main"
         ),
     ],
@@ -41,11 +53,12 @@ let package = Package(
             name: "Tagged Collection",
             dependencies: [
                 .product(name: "Tagged", package: "swift-tagged"),
-                .product(
-                    name: "Collection Protocol",
-                    package: "swift-collection"
-                ),
+                .product(name: "Collection", package: "swift-collection"),
                 .product(name: "Index", package: "swift-index"),
+                .product(
+                    name: "Ordinal Comparison",
+                    package: "swift-ordinal-comparison"
+                ),
             ]
         ),
 
@@ -53,11 +66,6 @@ let package = Package(
             name: "Tagged Collection Test Support",
             dependencies: [
                 "Tagged Collection",
-
-                .product(
-                    name: "Collection Test Support",
-                    package: "swift-collection"
-                ),
             ],
             path: "Tests/Support"
         ),
@@ -67,10 +75,9 @@ let package = Package(
             dependencies: [
                 "Tagged Collection",
                 "Tagged Collection Test Support",
-                .product(
-                    name: "Collection Test Support",
-                    package: "swift-collection"
-                ),
+                .product(name: "Collection", package: "swift-collection"),
+                .product(name: "Iterator", package: "swift-iterator"),
+                .product(name: "Ordinal", package: "swift-ordinal"),
             ]
         ),
     ],
