@@ -42,10 +42,6 @@ let package = Package(
             url: "https://github.com/swift-atoms/swift-ordinal.git",
             branch: "main"
         ),
-        .package(
-            url: "https://github.com/swift-molecules/swift-ordinal-comparison.git",
-            branch: "main"
-        ),
     ],
     targets: [
 
@@ -57,7 +53,7 @@ let package = Package(
                 .product(name: "Index", package: "swift-index"),
                 .product(
                     name: "Ordinal Comparison",
-                    package: "swift-ordinal-comparison"
+                    package: "swift-ordinal"
                 ),
             ]
         ),
